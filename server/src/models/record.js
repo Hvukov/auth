@@ -28,6 +28,21 @@ const Record = mongoose.model('Record', recordSchema);
 
 module.exports = Record;
 
+// const categorySchema = new Schema({
+//     režije: {
+//         type: String,
+//         required: true,
+//         enum: ['Struja', 'Plin', 'GSKG:prič, komu,voda, čist', 'Iskon', 'Mobitel Mirna', 'Mobitel Hrvoje', 'T: pričuva', 'V: Struja', 'V: čistoća, voda, komun', 'V. Plin', 'Crtanje']
+//     },
+//     hrana: {
+//         type: String,
+//         required: true,
+//         enum: ['Konzum', 'Lidl', 'Plodine', 'Spar', 'Kaufland', 'Metro', 'Müller', 'Diona', 'KTC', 'Billa', 'Konzum online', 'Lidl online', 'Plodine online', 'Spar online', 'Kaufland online', 'Metro online', 'Müller online', 'Diona online', 'KTC online', 'Billa online', 'Konzum dostava', 'Lidl dostava', 'Plodine dostava', 'Spar dostava', 'Kaufland dostava', 'Metro dostava', 'Müller dostava', 'Diona dostava', 'KTC dostava', 'Billa dostava', 'Konzum online dostava', 'Lidl online dostava', 'Plodine online dostava', 'Spar online dostava', 'Kaufland online dostava', 'Metro online dostava', 'Müller online dostava', 'Diona online dostava', 'KTC online dostava', 'Billa online dostava']
+//     },
+// })
+
+// const Category = mongoose.model('Category', categorySchema);
+
 // const categorySchema = new mongoose.Schema({
 //   name: {
 //     type: String,

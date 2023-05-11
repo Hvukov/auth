@@ -1,0 +1,6 @@
+<p>Favorite color: !</p>
+<input id="name" type="text" [formControl]="name">
+
+<p>{{name.value}}</p>
+
+<button type="button" (click)=updateName()>Update Name</button>
