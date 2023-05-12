@@ -1,32 +1,86 @@
-const mongoose = require("mongoose");
-const { Schema } = mongoose;
+
+const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
+const User = require('./user');
+
+const categorySchema = new Schema({
+    name: {
+        type: String,
+        required: true,
+    },
+    subcategories: [
+        {
+            name: {
+                type: String,
+                required: true,
+            }
+        }
+    ]
+})
+
+const Category = mongoose.model('Category', categorySchema);
 
 const recordSchema = new Schema({
-    date: {
-        type: Date,
-        required: true
+    user: {
+        type: Schema.Types.ObjectId,
+        ref: 'User',
+        required: true,
     },
     category: {
-        type:String,
-        required: true
+        type: Schema.Types.ObjectId,
+        ref: 'Category',
     },
     subcategory: {
-        type: String,
-        required: true
+        type: Schema.Types.ObjectId,
+        ref: 'Category.subcategories',
     },
     amount: {
         type: Number,
-        required: true
+        required: true,
     },
-    user: {
-        type: String,
-        required: true
+    date: {
+        type: Date,
+        default: Date.now(),
     }
+    
 })
 
 const Record = mongoose.model('Record', recordSchema);
 
-module.exports = Record;
+module.exports = {
+    Category,
+    Record,
+}
+
+// const mongoose = require("mongoose");
+// const { Schema } = mongoose;
+
+// const recordSchema = new Schema({
+//     date: {
+//         type: Date,
+//         required: true
+//     },
+//     category: {
+//         type:String,
+//         required: true
+//     },
+//     subcategory: {
+//         type: String,
+//         required: true
+//     },
+//     amount: {
+//         type: Number,
+//         required: true
+//     },
+//     user: {
+//         type: String,
+//         required: true
+//     }
+// })
+
+// const Record = mongoose.model('Record', recordSchema);
+
+// module.exports = Record;
 
 // const categorySchema = new Schema({
 //     režije: {

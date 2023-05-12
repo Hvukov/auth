@@ -6,6 +6,7 @@ const cookieParser = require('cookie-parser');
 
 const userRouter = require('./routes/userRoutes');
 const recordRouter = require('./routes/recordRoutes');
+const categoryRouter = require('./routes/categoryRoutes');
 
 async function connect() {
     try {
@@ -30,6 +31,7 @@ app.use(cors({
 app.use(express.json());
 
 app.use("/api", userRouter);
+app.use("/api", categoryRouter);
 app.use("/api", recordRouter);
 
 app.listen(3000, () => {

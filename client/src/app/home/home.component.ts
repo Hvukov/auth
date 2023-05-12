@@ -1,7 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { Emitters } from '../emitters/emitters';
-import categories from '../../records-categories-storage/categories.json';
 import { FormBuilder, FormGroup } from '@angular/forms';
 
 @Component({
@@ -10,8 +9,8 @@ import { FormBuilder, FormGroup } from '@angular/forms';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit{
-  message =" You are not logged in"
-  rezije:string[] = [];
+  message = "You are not logged in";
+
   form!: FormGroup;
 
   constructor(
@@ -20,14 +19,6 @@ export class HomeComponent implements OnInit{
   ) { }
 
   ngOnInit(): void {
-    this.rezije = this.getCategories()
-    this.form = this.formBuilder.group({
-      date: Date.now(),
-      category: 'Režije',
-      subcategory: 'Struja',
-      amount: '',
-      user: 'Hrvoje'
-    })
 
     this.http.get('http://localhost:3000/api/user', {withCredentials: true})
     .subscribe((response: any) => {
@@ -38,10 +29,18 @@ export class HomeComponent implements OnInit{
       this.message = "You are not logged in"
       Emitters.authEmitter.emit(false);
     })
+
+    this.getCategories();
   }
 
   getCategories() {
-    return categories.Režije;
+    this.http.get("http://localgost:3000/api/categories")
+    .subscribe((response: any) => {
+      console.log(response);
+
+    }, err => {
+      console.log(err);
+    })
   }
 
   addRecord() {
