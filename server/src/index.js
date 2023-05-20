@@ -7,6 +7,7 @@ const cookieParser = require('cookie-parser');
 const userRouter = require('./routes/userRoutes');
 const recordRouter = require('./routes/recordRoutes');
 const categoryRouter = require('./routes/categoryRoutes');
+const incomeCategoryRouter = require('./routes/incomeCategoryRoutes');
 
 async function connect() {
     try {
@@ -32,6 +33,8 @@ app.use(express.json());
 
 app.use("/api", userRouter);
 app.use("/api", categoryRouter);
+app.use("/api", incomeCategoryRouter);
+
 app.use("/api", recordRouter);
 
 app.listen(3000, () => {

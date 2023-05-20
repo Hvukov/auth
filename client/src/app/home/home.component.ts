@@ -10,8 +10,8 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 })
 export class HomeComponent implements OnInit{
   message = "You are not logged in";
-
   form!: FormGroup;
+  categories: any;
 
   constructor(
     private http: HttpClient,
@@ -30,13 +30,21 @@ export class HomeComponent implements OnInit{
       Emitters.authEmitter.emit(false);
     })
 
-    this.getCategories();
+    let categories = this.getCategories();
+    console.log(categories);
+
   }
 
   getCategories() {
-    this.http.get("http://localgost:3000/api/categories")
+    this.http.get("http://localhost:3000/api/categories")
     .subscribe((response: any) => {
-      console.log(response);
+      this.categories = response.data;
+      console.log(this.categories);
+     const [obrazovanje, domaćinstvo] = this.categories;
+     obrazovanje.subcategories.forEach((subcategory: any) => {
+        console.log(subcategory.name);
+      })
+
 
     }, err => {
       console.log(err);

@@ -10,6 +10,7 @@ import { HomeComponent } from './home/home.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { FormComponent } from './form/form.component';
+import { RecordComponent } from './record/record.component';
 
 @NgModule({
   declarations: [
@@ -18,14 +19,15 @@ import { FormComponent } from './form/form.component';
     LoginComponent,
     NavComponent,
     HomeComponent,
-    FormComponent
+    FormComponent,
+    RecordComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
