@@ -11,6 +11,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { FormComponent } from './form/form.component';
 import { RecordComponent } from './record/record.component';
+import { IncomeComponent } from './income/income.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { RecordComponent } from './record/record.component';
     NavComponent,
     HomeComponent,
     FormComponent,
-    RecordComponent
+    RecordComponent,
+    IncomeComponent
   ],
   imports: [
     BrowserModule,
