@@ -12,6 +12,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { FormComponent } from './form/form.component';
 import { RecordComponent } from './record/record.component';
 import { IncomeComponent } from './income/income.component';
+import { CategoriesComponent } from './categories/categories.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { IncomeComponent } from './income/income.component';
     HomeComponent,
     FormComponent,
     RecordComponent,
-    IncomeComponent
+    IncomeComponent,
+    CategoriesComponent
   ],
   imports: [
     BrowserModule,

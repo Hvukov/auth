@@ -1,40 +1,47 @@
-<!-- <div class="btn-group" *ngFor="let category of categories" style="margin:2px;">
-  <form [formGroup]="incomeForm">
-    <button  type="button" class="btn btn-primary">{{category.name}}</button>
-  </form>
-</div> -->
+<h1 class="text-center">
+  Lista prihoda
+</h1>
 
-<div class="btn-group" *ngFor="let category of categories" style="margin:2px;">
-  <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo">{{category.name}}</button>
+<div class="d-flex flex-column flex-nowrap" style="align-items: center">
 
-  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Forma za prihode</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-          <form [formGroup]="incomeForm" (submit)="onSubmit(category)">
-            <div class="input-group mb-3">
-              <span class="input-group-text">EUR</span>
-              <span class="input-group-text">0.00</span>
-              <input type="number" class="form-control" aria-label="EUR amount (with dot and two decimal places)" formControlName="amount">
-            </div>
-            <div class="mb-3">
-              <label for="date" class="col-form-label">Date</label>
-              <input type="date" formControlName="date">
-            </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Zatvori</button>
-              <button type="submit" class="btn btn-primary">Unesi novi prihod</button>
-            </div>
-          </form>
-        </div>
+
+    <div *ngFor="let category of categories">
+
+        <button type="button" class="custom" style="min-width: 250px;margin-bottom: 10px;" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo" (click)="onSelect(category)">{{category.name}}</button>
 
       </div>
-    </div>
-  </div>
+
+      <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" *ngIf="selectedCategory">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">{{selectedCategory.name | uppercase}}</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <form [formGroup]="incomeForm" (submit)="onSubmit()">
+                <div class="input-group mb-3">
+                  <span class="input-group-text">EUR</span>
+                  <span class="input-group-text">0.00</span>
+                  <input type="number" class="form-control" aria-label="EUR amount (with dot and two decimal places)" formControlName="amount">
+                </div>
+                <div class="mb-3">
+                  <label for="date" class="col-form-label">Date</label>
+                  <input type="date" formControlName="date">
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Zatvori</button>
+                  <button type="submit" class="btn btn-primary" [disabled]="!incomeForm.valid">Unesi novi prihod</button>
+                </div>
+              </form>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+
+
+
 
 </div>
-

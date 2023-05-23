@@ -12,6 +12,7 @@ export class HomeComponent implements OnInit{
   message = "You are not logged in";
   form!: FormGroup;
   categories: any;
+  isLoggedIn:boolean = false;
 
   constructor(
     private http: HttpClient,
@@ -23,11 +24,16 @@ export class HomeComponent implements OnInit{
     this.http.get('http://localhost:3000/api/user', {withCredentials: true})
     .subscribe((response: any) => {
       this.message = `Hi ${response.name}, you are logged in!`
+      setTimeout(() => {
+        this.message = '';
+      },5000)
       Emitters.authEmitter.emit(true);
+      this.isLoggedIn = true;
     },
     err => {
       this.message = "You are not logged in"
       Emitters.authEmitter.emit(false);
+      this.isLoggedIn = false;
     })
 
     let categories = this.getCategories();
