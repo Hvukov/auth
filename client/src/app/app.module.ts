@@ -13,6 +13,7 @@ import { FormComponent } from './form/form.component';
 import { RecordComponent } from './record/record.component';
 import { IncomeComponent } from './income/income.component';
 import { CategoriesComponent } from './categories/categories.component';
+import { ExpensesComponent } from './expenses/expenses.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import { CategoriesComponent } from './categories/categories.component';
     FormComponent,
     RecordComponent,
     IncomeComponent,
-    CategoriesComponent
+    CategoriesComponent,
+    ExpensesComponent
   ],
   imports: [
     BrowserModule,

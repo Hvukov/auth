@@ -1,1 +1,46 @@
-<p>categories works!</p>
+<ng-container *ngIf="isLoggedIn">
+
+  <ul class="nav nav-pills mb-5 justify-content-center" id="ex1" role="tablist">
+    <li class="nav-item " role="presentation">
+      <a
+        class="nav-link active"
+        id="ex1-tab-1"
+        data-bs-toggle="tab"
+        href="#ex1-tabs-1"
+        role="tab"
+        aria-controls="ex1-tabs-1"
+        aria-selected="true"
+        >Troškovi</a
+      >
+    </li>
+    <li class="nav-item" role="presentation">
+      <a
+        class="nav-link"
+        id="ex1-tab-2"
+        data-bs-toggle="tab"
+        href="#ex1-tabs-2"
+        role="tab"
+        aria-controls="ex1-tabs-2"
+        aria-selected="false"
+        >Prihodi</a
+      >
+    </li>
+
+  </ul>
+  <div class="tab-content d-flex justify-content-center" id="ex1-content">
+    <div
+      class="tab-pane fade show active"
+      id="ex1-tabs-1"
+      role="tabpanel"
+      aria-labelledby="ex1-tab-1"
+    >
+      <app-expenses></app-expenses>
+    </div>
+    <div class="tab-pane fade" id="ex1-tabs-2" role="tabpanel" aria-labelledby="ex1-tab-2">
+      <app-income></app-income>
+    </div>
+
+  </div>
+
+
+</ng-container>
