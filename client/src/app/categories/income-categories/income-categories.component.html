@@ -1,0 +1,76 @@
+
+ <div class="container">
+  <div class="row">
+    <div class="col" *ngFor="let category of categories">
+      <div class="card card-border" style="width: 15rem">
+        <div class="card-body">
+
+
+        <button (click)="onSelect(category)" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo">{{category.name}}</button>
+
+
+        <div *ngIf="selectedIncomeCategory" class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Detalji kategorije: {{selectedIncomeCategory.name}}</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
+                <form [formGroup]="incomeCategoriesForm">
+                  <div class="mb-3">
+                    <label for="recipient-name" class="col-form-label">Ime kategorije</label>
+                    <input type="text" class="form-control" id="recipient-name" formControlName="name" [(ngModel)]="selectedIncomeCategory.name">
+                  </div>
+
+                </form>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Zatvori</button>
+                <button type="button" class="btn btn-primary" [disabled]="!incomeCategoriesForm.valid" >Spremi</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+        </div>
+
+
+      </div>
+
+
+    </div>
+    <div class="col">
+      <div class="card" style="width:15rem">
+        <div class="card-body">
+          <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@fat">Dodaj kategoriju</button>
+
+  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Detalji kategorije</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form [formGroup]="newCategoryForm">
+            <div class="mb-3">
+              <label for="recipient-name" class="col-form-label">Ime kategorije:</label>
+              <input type="text" class="form-control" id="recipient-name" formControlName="name">
+            </div>
+
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Zatvori</button>
+          <button type="button" class="btn btn-primary" (click)=addIncomeCategory()>Spremi</button>
+        </div>
+      </div>
+    </div>
+  </div>
+        </div>
+      </div>
+    </div>
+  </div>
+ </div>
