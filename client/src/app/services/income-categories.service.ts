@@ -20,4 +20,8 @@ export class IncomeCategoriesService {
   addIncomeCategory(name:any):Observable<any> {
     return this.http.post('http://localhost:3000/api/incomeCategories', name);
   }
+
+  deleteIncomeCategory(id:any):Observable<any> {
+    return this.http.delete(`http://localhost:3000/api/incomeCategories/${id}`);
+  }
 }

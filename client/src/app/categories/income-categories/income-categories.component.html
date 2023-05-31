@@ -1,33 +1,33 @@
+<div class="grid-container">
 
- <div class="container">
-  <div class="row">
-    <div class="col" *ngFor="let category of categories">
-      <div class="card card-border" style="width: 15rem">
+    <div *ngFor="let category of categories">
+      <div class="card card-border card-container" style="width: 15rem">
         <div class="card-body">
 
 
-        <button (click)="onSelect(category)" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo">{{category.name}}</button>
+        <button (click)="onSelect(category)" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal1" data-bs-whatever="@mdo">{{category.name}}</button>
 
 
-        <div *ngIf="selectedIncomeCategory" class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div *ngIf="selectedIncomeCategory" class="modal fade" id="exampleModal1" tabindex="-1" aria-labelledby="exampleModalLabel1" aria-hidden="true">
           <div class="modal-dialog">
             <div class="modal-content">
               <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Detalji kategorije: {{selectedIncomeCategory.name}}</h5>
+                <h5 class="modal-title" id="exampleModalLabel1">Promijeni kategoriju: {{selectedIncomeCategory.name}}</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
               </div>
               <div class="modal-body">
                 <form [formGroup]="incomeCategoriesForm">
                   <div class="mb-3">
-                    <label for="recipient-name" class="col-form-label">Ime kategorije</label>
-                    <input type="text" class="form-control" id="recipient-name" formControlName="name" [(ngModel)]="selectedIncomeCategory.name">
+                    <label for="recipient-name" class="col-form-label">Novo Ime kategorije</label>
+                    <input type="text" class="form-control" id="recipient-name" formControlName="name">
                   </div>
 
                 </form>
               </div>
-              <div class="modal-footer">
+              <div class="modal-footer d-flex justify-content-between">
+                <button type="button" class="btn btn-danger" data-bs-dismiss="modal" (click)=deleteIncomeCategory()>Izbriši</button>
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Zatvori</button>
-                <button type="button" class="btn btn-primary" [disabled]="!incomeCategoriesForm.valid" >Spremi</button>
+                <button type="button" class="btn btn-primary" [disabled]="!incomeCategoriesForm.valid" (click)="editIncomeCategory()">Spremi</button>
               </div>
             </div>
           </div>
@@ -44,13 +44,13 @@
     <div class="col">
       <div class="card" style="width:15rem">
         <div class="card-body">
-          <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@fat">Dodaj kategoriju</button>
+          <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal2" data-bs-whatever="@fat">Dodaj kategoriju</button>
 
-  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal fade" id="exampleModal2" tabindex="-1" aria-labelledby="exampleModalLabel2" aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Detalji kategorije</h5>
+          <h5 class="modal-title" id="exampleModalLabel2">Detalji kategorije</h5>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
@@ -72,5 +72,5 @@
         </div>
       </div>
     </div>
-  </div>
+
  </div>

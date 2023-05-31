@@ -24,16 +24,13 @@ export class IncomeCategoriesComponent implements OnInit{
     })
 
     newCategoryForm = this.fb.group({
-      name: ['', Validators.required],
-      _id: ['']
+      name: ['', Validators.required]
     })
 
   ngOnInit(): void {
     this.incomeCategoriesService.getIncomeCategories()
     .subscribe((response:any) => {
       this.categories = response.data;
-      console.log(this.categories,"ovo su kategorije");
-
     })
   }
 
@@ -44,11 +41,30 @@ export class IncomeCategoriesComponent implements OnInit{
 
   editIncomeCategory() {
     this.incomeCategoriesService.editIncomeCategory(this.selectedIncomeCategory._id, this.incomeCategoriesForm.getRawValue())
+    .subscribe((response:any) => {
+      //update the categories array
+     this.categories = this.categories.map((category => {
+        if(category._id === this.selectedIncomeCategory._id) {
+          return response.data;
+        }
+        return category;
+     }))
+    })
   }
 
   addIncomeCategory() {
     this.incomeCategoriesService.addIncomeCategory(this.newCategoryForm.getRawValue())
     .subscribe((response:any) => {
+      this.categories.push(response.data);
+    })
+  }
+
+  deleteIncomeCategory() {
+    this.incomeCategoriesService.deleteIncomeCategory(this.selectedIncomeCategory._id)
+    .subscribe((response:any) => {
+      this.categories = this.categories.filter((category)=> {
+        return category._id !== this.selectedIncomeCategory._id;
+      })
     })
   }
 }

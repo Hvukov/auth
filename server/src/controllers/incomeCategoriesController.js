@@ -3,6 +3,17 @@ const { IncomeCategory } =  require("../models/income");
 const createCategory = async (req, res) => {
     try {
        const {name} = req.body;
+       const existingCategory = await IncomeCategory.findOne({name});
+         if(existingCategory) {
+                res.status(409).json({message: "Category already exists"})
+                return
+         }
+        if(!name){
+            res.status(422).json({message: "Name is required"})
+            return
+         }
+
+       
        const newCategory = new IncomeCategory({name});
          await newCategory.save();
             res.status(201).json({
@@ -40,6 +51,12 @@ const getOneCategory = async (req, res) => {
 const updateCategory = async (req, res) => {
     try {
         const {name} = req.body;
+        const existingCategory = await IncomeCategory.findOne({name});
+        if(existingCategory) {
+            res.status(409).json({message: "Category already exists"})
+            return
+        }
+        
         const category = await IncomeCategory.findById(req.params.id).exec();
         if(!category) {
             res.status(404).json({message: "Category not found"})

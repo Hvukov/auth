@@ -35,20 +35,16 @@ export class HomeComponent implements OnInit{
       Emitters.authEmitter.emit(false);
       this.isLoggedIn = false;
     })
-
-    let categories = this.getCategories();
-    console.log(categories);
-
   }
 
   getCategories() {
     this.http.get("http://localhost:3000/api/categories")
     .subscribe((response: any) => {
       this.categories = response.data;
-      console.log(this.categories);
+      //console.log(this.categories);
      const [obrazovanje, domaćinstvo] = this.categories;
      obrazovanje.subcategories.forEach((subcategory: any) => {
-        console.log(subcategory.name);
+        //console.log(subcategory.name);
       })
 
 
