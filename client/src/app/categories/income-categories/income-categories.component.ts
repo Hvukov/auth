@@ -47,13 +47,7 @@ export class IncomeCategoriesComponent implements OnInit{
     this.incomeCategoriesService.editIncomeCategory(this.selectedIncomeCategory._id, this.incomeCategoriesForm.getRawValue())
     .subscribe((response:any) => {
       //update the categories array
-     this.categories = this.categories.map((category => {
-        if(category._id === this.selectedIncomeCategory._id) {
-          return response.data;
-        }
-        return category;
-
-     }))
+     this.selectedIncomeCategory.name = response.data.name;
      this.isResponseOk = true;
      //close modal button
       this.closeButton.nativeElement.click();

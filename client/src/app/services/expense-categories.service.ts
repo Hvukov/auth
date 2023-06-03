@@ -14,8 +14,8 @@ export class ExpenseCategoriesService {
     return this.http.get<IExpenseCategory>('http://localhost:3000/api/categories');
   }
 
-  createExpenseCategory(name:any):Observable<any> {
-    return this.http.post('http://localhost:3000/api/categories', name);
+  createExpenseCategory(name:any, subcategories:any):Observable<IExpenseCategory> {
+    return this.http.post<IExpenseCategory>('http://localhost:3000/api/categories', { name, subcategories });
   }
 
   editExpenseCategory(id:any, name:any):Observable<any> {

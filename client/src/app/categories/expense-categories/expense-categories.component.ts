@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
+import { Subscriber } from 'rxjs';
 import { ExpenseCategoriesService } from 'src/app/services/expense-categories.service';
 import { IExpenseCategory, ISubcategory } from 'src/app/shared-types/categories';
 
@@ -15,6 +16,7 @@ export class ExpenseCategoriesComponent implements OnInit{
     selectedCategoriesIndex!:number;
     selectedSubcategory!:any;
     subcategories: ISubcategory[] = [];
+    subcategoriesList: string[] = [];
 
     constructor(
       private expenseCategoryService: ExpenseCategoriesService,
@@ -23,6 +25,11 @@ export class ExpenseCategoriesComponent implements OnInit{
       ) { }
 
     expenseCategoryForm = this.fb.group({
+      name: [''],
+      subcategoryName: ['']
+    })
+
+    newCategoryForm = this.fb.group({
       name: [''],
       subcategoryName: ['']
     })
@@ -36,27 +43,16 @@ export class ExpenseCategoriesComponent implements OnInit{
       })
     }
 
-    onSelect(category:any) {
+    onSelect(category:any):void {
       this.selectedCategory = category;
       this.selectedCategoriesIndex = this.expenseCategories.indexOf(category);
       this.subcategories = this.expenseCategories[this.selectedCategoriesIndex].subcategories;
-      console.log(this.subcategories);
-    }
-
-    editExpenseCategory() {
-      console.log(this.expenseCategoryForm.getRawValue());
-
     }
 
     editExpenseCategoryName() {
       return this.expenseCategoriesService.editExpenseCategory(this.selectedCategory._id, this.expenseCategoryForm.getRawValue())
       .subscribe((response:any) => {
-        this.expenseCategories = this.expenseCategories.map(category => {
-          if(category._id === this.selectedCategory._id) {
-            return response.data;
-          }
-          return category;
-        })
+      this.selectedCategory.name = response.data.name;
       }
       )
     }
@@ -89,6 +85,27 @@ export class ExpenseCategoriesComponent implements OnInit{
       .subscribe((response:any) => {
         this.expenseCategories.splice(this.selectedCategoriesIndex, 1);
       })
+    }
+
+    addSubcategoryToList() {
+      const subCategoryName = this.newCategoryForm.getRawValue().subcategoryName;
+      console.log(this.newCategoryForm.getRawValue());
+
+      if(subCategoryName) {
+        this.subcategoriesList.push(subCategoryName);
+      }
+    }
+
+    createExpenseCategory() {
+      const subcategories = this.subcategoriesList.map((subcategory: string) => {
+        return { name: subcategory }
+      })
+    this.expenseCategoriesService.createExpenseCategory(this.newCategoryForm.getRawValue().name, subcategories)
+    .subscribe((response:any) => {
+      this.expenseCategories.push(response.data);
+    })
+    this.subcategoriesList = [];
+    this.newCategoryForm.reset();
     }
 
 }
