@@ -13,4 +13,21 @@ export class ExpenseCategoriesService {
   getExpenseCategories():Observable<IExpenseCategory> {
     return this.http.get<IExpenseCategory>('http://localhost:3000/api/categories');
   }
+
+  createExpenseCategory(name:any):Observable<any> {
+    return this.http.post('http://localhost:3000/api/categories', name);
+  }
+
+  editExpenseCategory(id:any, name:any):Observable<any> {
+    return this.http.patch(`http://localhost:3000/api/categories/${id}`, name);
+
+  }
+
+  editExpenseSubcategory(categoryId: any, subcategoryId: any, name: any): Observable<any> {
+    return this.http.patch(`http://localhost:3000/api/categories/${categoryId}/subcategories/${subcategoryId}`, { name });
+  }
+
+  deleteExpenseCategory(id:any):Observable<any> {
+    return this.http.delete(`http://localhost:3000/api/categories/${id}`);
+  }
 }

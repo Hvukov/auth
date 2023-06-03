@@ -1,5 +1,5 @@
 
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { IncomeCategoriesService } from 'src/app/services/income-categories.service';
 import { IIncomeCategory } from 'src/app/shared-types/categories';
@@ -13,6 +13,10 @@ import { IIncomeCategory } from 'src/app/shared-types/categories';
 export class IncomeCategoriesComponent implements OnInit{
   categories: IIncomeCategory[] = [];
   selectedIncomeCategory!: any;
+  selectedCategory!:any;
+  isResponseOk!:boolean;
+  @ViewChild('dialog') dialog!:ElementRef;
+  @ViewChild('closeButton') closeButton!:ElementRef;
 
   constructor(
     private incomeCategoriesService:IncomeCategoriesService,
@@ -48,7 +52,14 @@ export class IncomeCategoriesComponent implements OnInit{
           return response.data;
         }
         return category;
+
      }))
+     this.isResponseOk = true;
+     //close modal button
+      this.closeButton.nativeElement.click();
+    },
+    err => {
+      this.isResponseOk = false;
     })
   }
 
@@ -56,7 +67,13 @@ export class IncomeCategoriesComponent implements OnInit{
     this.incomeCategoriesService.addIncomeCategory(this.newCategoryForm.getRawValue())
     .subscribe((response:any) => {
       this.categories.push(response.data);
+      this.isResponseOk = true;
+    },
+    err => {
+      this.isResponseOk = false;
     })
+
+
   }
 
   deleteIncomeCategory() {
@@ -66,5 +83,12 @@ export class IncomeCategoriesComponent implements OnInit{
         return category._id !== this.selectedIncomeCategory._id;
       })
     })
+  }
+
+  openDialog(category:any) {
+    this.selectedCategory = category;
+    this.dialog.nativeElement.showModal();
+    console.log(this.selectedCategory);
+
   }
 }

@@ -33,7 +33,9 @@ const createCategory = async (req, res) => {
 const getCategories = async (req, res) => {
     try {
         const allCategories = await Category.find();
-        if(!allCategories) throw new Error("Categories not found")
+        if(!allCategories) {
+            res.status(404).json({message: "Categories not found"})
+        }
         res.status(200).json({data: allCategories})
     } catch (error) {
         console.warn(error)
@@ -44,7 +46,9 @@ const getCategories = async (req, res) => {
 const getOneCategory = async (req, res) => {
     try {
         const category = await Category.findById(req.params.id).exec()
-        if(!category) throw new Error("Category not found")
+        if(!category) {
+            res.status(404).json({message: "Category not found"})
+        }
         res.status(200).json({data: category})
     } catch (error) {
         console.warn(error)
@@ -55,7 +59,9 @@ const getOneCategory = async (req, res) => {
 const updateCategory = async (req, res) => {
     const {name, subcategories} = req.body;
     const category = await Category.findById(req.params.id).exec()
-         if(!category) throw new Error("Category not found")
+         if(!category) {
+            res.status(404).json({message: "Category not found"})
+         }
     try {
        const updatedCategory = await Category.findByIdAndUpdate(req.params.id, {name, subcategories}, {new: true}).exec()
          res.status(200).json({message: "Category updated", data: updatedCategory})
@@ -65,10 +71,47 @@ const updateCategory = async (req, res) => {
     }
 }
 
+const deleteCategory = async (req, res) => {
+    try {
+        const category = await Category.findByIdAndDelete(req.params.id).exec()
+        if(!category) {
+            res.status(404).json({message: "Category not found"})
+        }
+        res.status(200).json({message: "Category deleted"})
+    } catch (error) {
+        console.warn(error)
+        res.status(500).json({message: "Category not deleted"})
+    }
+}
+
+const updateSubcategory = async (req, res) => {
+  const {categoryId, subcategoryId} = req.params;
+    const {name} = req.body;
+    try {
+        const category = await Category.findById(categoryId).exec()
+        if(!category) {
+            res.status(404).json({message: "Category not found"})
+
+        }
+        const subcategory = category.subcategories.id(subcategoryId)
+        if(!subcategory) {
+            res.status(404).json({message: "Subcategory not found"})
+        }
+        subcategory.name = name
+        await category.save()
+        res.status(200).json({message: "Subcategory updated",category:category, subcategory: subcategory})
+    } catch (error) {
+        console.warn(error)
+        res.status(500).json({message: "Subcategory not updated"})  
+    }
+}
+
 
 module.exports = {
     getCategories,
     createCategory,
     updateCategory,
-    getOneCategory
+    getOneCategory,
+    deleteCategory,
+    updateSubcategory
 }
