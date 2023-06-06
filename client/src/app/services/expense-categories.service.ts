@@ -30,4 +30,12 @@ export class ExpenseCategoriesService {
   deleteExpenseCategory(id:any):Observable<any> {
     return this.http.delete(`http://localhost:3000/api/categories/${id}`);
   }
+
+  deleteExpenseSubcategory(categoryId:any, subcategoryId:any):Observable<any> {
+    return this.http.delete(`http://localhost:3000/api/categories/${categoryId}/subcategories/${subcategoryId}`);
+  }
+
+  createExpenseSubcategory(categoryId: any, name: any): Observable<any> {
+    return this.http.post(`http://localhost:3000/api/categories/${categoryId}/subcategories`, { name });
+  }
 }

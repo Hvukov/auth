@@ -3,6 +3,7 @@ import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { IncomeCategoriesService } from 'src/app/services/income-categories.service';
 import { IIncomeCategory } from 'src/app/shared-types/categories';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-income-categories',
@@ -21,6 +22,7 @@ export class IncomeCategoriesComponent implements OnInit{
   constructor(
     private incomeCategoriesService:IncomeCategoriesService,
     private fb: FormBuilder,
+    private toastr: ToastrService
     ) { }
 
     incomeCategoriesForm = this.fb.group( {
@@ -51,6 +53,8 @@ export class IncomeCategoriesComponent implements OnInit{
      this.isResponseOk = true;
      //close modal button
       this.closeButton.nativeElement.click();
+      this.toastr.success(`${this.selectedIncomeCategory.name} kategorija je preimenovana u ${response.data.name}`, 'Uspješna promjena imena kategorije!');
+      this.incomeCategoriesForm.reset();
     },
     err => {
       this.isResponseOk = false;
@@ -62,9 +66,11 @@ export class IncomeCategoriesComponent implements OnInit{
     .subscribe((response:any) => {
       this.categories.push(response.data);
       this.isResponseOk = true;
+      this.toastr.success(`${response.data.name} kategorija je dodata`, 'Uspješno dodavanje kategorije!');
     },
     err => {
       this.isResponseOk = false;
+      this.toastr.error(`Kategorija nije dodata`, 'Greška!');
     })
 
 
@@ -76,6 +82,10 @@ export class IncomeCategoriesComponent implements OnInit{
       this.categories = this.categories.filter((category)=> {
         return category._id !== this.selectedIncomeCategory._id;
       })
+      this.toastr.success(`${this.selectedIncomeCategory.name} kategorija je izbrisana`, 'Uspješno brisanje kategorije!');
+    },
+    (err:any) => {
+      this.toastr.error(`Kategorija nije izbrisana`, 'Greška!');
     })
   }
 

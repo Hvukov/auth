@@ -15,6 +15,8 @@ import { IncomeComponent } from './income/income.component';
 import { CategoriesComponent } from './categories/categories.component';
 import { IncomeCategoriesComponent } from './categories/income-categories/income-categories.component';
 import { ExpenseCategoriesComponent } from './categories/expense-categories/expense-categories.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ToastrModule } from 'ngx-toastr';
 
 @NgModule({
   declarations: [
@@ -36,6 +38,11 @@ import { ExpenseCategoriesComponent } from './categories/expense-categories/expe
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
+    BrowserAnimationsModule,
+    ToastrModule.forRoot({
+      positionClass: 'toast-bottom-right',
+      preventDuplicates: true,
+    })
   ],
   providers: [],
   bootstrap: [AppComponent]

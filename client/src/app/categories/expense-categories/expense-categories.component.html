@@ -10,7 +10,7 @@
         <div class="modal fade" id="exampleModalExpense" tabindex="-1" aria-labelledby="exampleModalLabel"
           aria-hidden="true">
           <div class="modal-dialog">
-            <div class="modal-content">
+            <div class="modal-content"  style="width:550px;">
               <div class="modal-header">
                 <h5 class="modal-title" id="exampleModalLabel">Kategorija: <span>{{selectedCategory?.name}}</span></h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -18,22 +18,20 @@
               <div class="modal-body">
                 <form class="form-group" [formGroup]="expenseCategoryForm">
                   <div class="mb-3">
-                    <label for="recipient-name" class="col-form-label">Unesi novo ime kategorije:</label>
+                    <label for="recipient-name" class="col-form-label">Promijeni ime kategorije:</label>
                     <div class="input-group">
                       <input type="text" class="form-control" id="recipient-name" formControlName="name">
-                      <button class="btn btn-primary" type="button" (click)="editExpenseCategoryName()">Spremi</button>
+                      <button class="btn btn-primary" type="button" (click)="editExpenseCategoryName()" [disabled]="name?.errors?.['required']">Spremi</button>
+
                     </div>
                   </div>
-
-                  <hr>
-                  <label  class="col-form-label">Unesi novo ime podkategorije:</label>
 
                   <div class="mb-3 d-flex">
 
                     <div class="dropdown">
 
                       <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton"
-                        data-bs-toggle="dropdown" aria-expanded="false">
+                        data-bs-toggle="dropdown" aria-expanded="false" style="height:58px;">
                         Podkategorije
                       </button>
                       <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
@@ -42,9 +40,29 @@
                         </li>
                       </ul>
                     </div>
-                    <input type="text" class="form-control" [value]="selectedSubcategory?.name">
-                    <input type="text" class="form-control" formControlName="subcategoryName">
-                    <button class="btn btn-primary" type="button" (click)="editExpenseSubcategoryName()">Spremi</button>
+                    <div class="form-floating mb-3">
+                      <input type="text" class="form-control" [value]="selectedSubcategory?.name" readonly>
+                      <label>Staro ime</label>
+                    </div>
+
+                    <div class="form-floating mb-3">
+                      <input type="text" class="form-control" formControlName="subcategoryName">
+                      <label>Novo ime</label>
+                    </div>
+
+
+
+                    <button class="btn btn-primary" type="button" (click)="editExpenseSubcategoryName()" style="height:58px;" [disabled]="subcategoryName?.errors?.['required']">Spremi</button>
+                    <button class="btn btn-danger" type="button" style="height:58px;" (click)=deleteExpenseSubcategory() [disabled]="!selectedSubcategory?.name">Izbriši</button>
+                  </div>
+
+                  <div class="mb-3">
+                    <label for="recipient-name" class="col-form-label">Unesi novu podkategoriju:</label>
+                    <div class="input-group">
+                      <input type="text" class="form-control" id="recipient-name" formControlName="addSubcategoryName" required>
+                      <button class="btn btn-primary" type="button" (click)="createExpenseSubcategory()" [disabled]="addSubcategoryName?.errors?.['required']">Spremi</button>
+
+                    </div>
                   </div>
                 </form>
               </div>
@@ -68,7 +86,7 @@
       <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#exampleModal5" data-bs-whatever="@getbootstra">Dodaj kategoriju</button>
 
      <div class="modal fade" id="exampleModal5" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
+        <div class="modal-dialog modal-lg">
           <div class="modal-content">
             <div class="modal-header">
               <h1 class="modal-title fs-5" id="exampleModalLabel">Detalji nove kategorije</h1>
@@ -85,7 +103,7 @@
                   <label for="message-text" class="col-form-label">Dodaj novu podkategoriju</label>
                   <div class="input-group">
                     <input type="text" class="form-control" formControlName="subcategoryName">
-                    <button class="btn btn-primary" type="button" (click)="addSubcategoryToList()">Dodaj</button>
+                    <button class="btn btn-primary" type="button" (click)="addSubcategoryToList()" [disabled]="newName?.errors?.['required'] || newSubcategoryName?.errors?.['required']">Dodaj</button>
 
                   </div>
                 </div>
@@ -102,7 +120,7 @@
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-              <button type="button" class="btn btn-primary" (click)="createExpenseCategory()">Spremi</button>
+              <button type="button" class="btn btn-primary" (click)="createExpenseCategory()" [disabled]="newName?.errors?.['required']">Spremi</button>
             </div>
           </div>
         </div>
@@ -110,4 +128,4 @@
     </div>
   </div>
 
-</div>
+
