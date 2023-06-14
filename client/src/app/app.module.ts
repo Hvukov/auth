@@ -17,6 +17,10 @@ import { IncomeCategoriesComponent } from './categories/income-categories/income
 import { ExpenseCategoriesComponent } from './categories/expense-categories/expense-categories.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
+import { TransactionsComponent } from './transactions/transactions.component';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { TransactionsHeaderComponent } from './transactions/transactions-header/transactions-header.component';
+import { TransactionsSummaryComponent } from './transactions/transactions-summary/transactions-summary.component';
 
 @NgModule({
   declarations: [
@@ -30,7 +34,10 @@ import { ToastrModule } from 'ngx-toastr';
     IncomeComponent,
     CategoriesComponent,
     IncomeCategoriesComponent,
-    ExpenseCategoriesComponent
+    ExpenseCategoriesComponent,
+    TransactionsComponent,
+    TransactionsHeaderComponent,
+    TransactionsSummaryComponent
   ],
   imports: [
     BrowserModule,
@@ -39,6 +46,7 @@ import { ToastrModule } from 'ngx-toastr';
     ReactiveFormsModule,
     HttpClientModule,
     BrowserAnimationsModule,
+    FontAwesomeModule,
     ToastrModule.forRoot({
       positionClass: 'toast-bottom-right',
       preventDuplicates: true,

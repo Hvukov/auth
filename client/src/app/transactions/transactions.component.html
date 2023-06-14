@@ -1,0 +1,12 @@
+<ng-container *ngIf="isLoggedIn">
+  <app-transactions-header
+  [month]="month"
+  [year]="year"
+  [monthName]="monthName"
+  [isCurrentYear]="isCurrentYear"
+  >
+  </app-transactions-header>
+
+  <app-transactions-summary></app-transactions-summary>
+
+</ng-container>

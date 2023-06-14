@@ -26,9 +26,15 @@
                     </div>
                   </div>
 
-                  <div class="mb-3 d-flex">
+                  <div *ngIf="subcategories.length === 0">
+                    <h6>Podkategorije su prazne</h6>
+                  </div>
 
-                    <div class="dropdown">
+                  <div class="mb-3 d-flex" *ngIf="subcategories.length > 0">
+
+
+
+                    <div class="dropdown" >
 
                       <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton"
                         data-bs-toggle="dropdown" aria-expanded="false" style="height:58px;">
